@@ -56,28 +56,25 @@
             background: rgba(255,255,255,0.06);
             padding: 25px;
             border-radius: 12px;
+            margin-top: 20px;
         }
 
-        .main {
+        .downloads-section {
             display: flex;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .info, .downloads {
-            flex: 1;
-        }
-
-        .downloads {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+        }
+
+        .downloads-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .download-list {
             display: flex;
             flex-direction: column;
-            width: 90%;
+            width: 100%;
             max-width: 300px;
             gap: 12px;
         }
@@ -132,9 +129,6 @@
 
         /* Responsive: stack columns on small screens */
         @media (max-width: 700px) {
-            .main {
-                flex-direction: column;
-            }
             .lang-select {
                 top: 12px;
                 right: 12px;
@@ -161,27 +155,22 @@
 
     <div class="container">
 
-        <!-- 左半邊：遊戲介紹； 右半邊：下載按鈕 -->
-        <div class="main">
-            <div class="info box">
-                <p id="description"></p>
-            </div>
-
-            <div class="downloads box">
-                <div class="download-list">
-                    <a href="#" class="download-btn btn-android">Android</a>
-                    <a href="#" class="download-btn btn-ios">iOS</a>
-                    <a href="#" class="download-btn btn-windows">Windows</a>
-                    <a href="#" class="download-btn btn-web">Web</a>
-                    <a href="#" class="download-btn btn-harmonyos">HarmonyOS NEXT</a>
-                    <a href="#" class="download-btn btn-uwp">UWP</a>
-                </div>
+        <!-- 下載按鈕 -->
+        <div class="box downloads-section">
+            <div class="downloads-title" id="downloadsTitle">Download</div>
+            <div class="download-list">
+                <a href="#" class="download-btn btn-android">Android</a>
+                <a href="#" class="download-btn btn-ios">iOS</a>
+                <a href="#" class="download-btn btn-windows">Windows</a>
+                <a href="#" class="download-btn btn-web">Web GL</a>
+                <a href="#" class="download-btn btn-harmonyos">HarmonyOS NEXT</a>
+                <a href="#" class="download-btn btn-uwp">UWP</a>
             </div>
         </div>
 
-        <!-- 底下：更新日誌 -->
-        <div class="box" style="margin-top:20px;">
-            <h2>Release Notes</h2>
+        <!-- 更新日誌 -->
+        <div class="box">
+            <h2 id="releaseTitle">Release Notes</h2>
             <p id="release" style="white-space: pre-wrap; text-align: left;"></p>
         </div>
 
@@ -190,13 +179,12 @@
     <footer id="studio"></footer>
 
     <script>
-        const data = {
+        const d ata = {
             "en":
             {
                 title: "BURNING CLOUD NIGHT",
-                description: `BURNING CLOUD NIGHT (BCN) is a fan-made collection based on Dancing Line by Fire Cloud Studio.
-Go through each level to explore the charm of the game.
-We will continue to produce and include more high-quality fan-made levels.`,
+                downloadsTitle: "Download",
+                releaseTitle: "Release Notes",
                 release: `1.4.1
 1. Fixed an issue where the player would die immediately after revival
 2. Added anti-aliasing
@@ -208,8 +196,8 @@ We will continue to produce and include more high-quality fan-made levels.`,
             "zh-hant":
             {
                 title: "火燒雲之夜 BURNING CLOUD NIGHT",
-                description: `BURNING CLOUD NIGHT (簡稱BCN) 是Fire Cloud Studio火雲工作室以跳舞的線Dancing Line為藍本所做的飯制合集。
-闖向各個關卡探索遊戲的魅力，我們將持續製作以及收錄更多優質飯製關卡作品。`,
+                downloadsTitle: "下載",
+                releaseTitle: "更新日誌",
                 release: `1.4.1
 1. 修正復活後瞬間死亡的問題
 2. 加入反鋸齒
@@ -221,8 +209,8 @@ We will continue to produce and include more high-quality fan-made levels.`,
             "zh-hans":
             {
                 title: "火烧云之夜 BURNING CLOUD NIGHT",
-                description: `BURNING CLOUD NIGHT (BCN) 是Fire Cloud Studio火云工作室以跳舞的线Dancing Line为蓝本所做的饭制合集。
-闯向各个关卡探索游戏的魅力，我们将持续制作以及收录更多优质饭制关卡作品。`,
+                downloadsTitle: "下载",
+                releaseTitle: "更新日志",
                 release: `1.4.1
 1. 修复复活后瞬间死亡的问题
 2. 加入抗锯齿
@@ -234,9 +222,8 @@ We will continue to produce and include more high-quality fan-made levels.`,
             "vi":
             {
                 title: "BURNING CLOUD NIGHT",
-                description: `BURNING CLOUD NIGHT (BCN) là một tựa game Dancing Line Fanmade của Fire Cloud Studio.
-Hãy vượt qua từng màn chơi để khám phá sức hấp dẫn của trò chơi.
-Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanmade chất lượng cao.`,
+                downloadsTitle: "Tải xuống",
+                releaseTitle: "Ghi chú phát hành",
                 release: `1.4.1
 1. Sửa lỗi mà người chơi chết lập tức sau khi hồi sinh
 2. Đã thêm tính năng Khử răng cưa   
@@ -248,9 +235,8 @@ Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanma
             "ja":
             {
                 title: "火焼雲の夜 BURNING CLOUD NIGHT",
-                description: `火焼雲の夜(BURNING CLOUD NIGHT) は、Dancing Line をベースにした 火雲スタジオによるファンメイドのコレクションです。
-各レベルをクリアして、ゲームの魅力を探求してください。
-今後も、より高品質なファンメイドレベルを制作し、収録していきます。`,
+                downloadsTitle: "ダウンロード",
+                releaseTitle: "リリースノート",
                 release: `1.4.1
 1. 復活後に即死してしまう問題を修正
 2. アンチエイリアスを追加
@@ -282,7 +268,8 @@ Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanma
             const item = data[lang] || data["en"];
             document.getElementById("title").innerText = item.title;
             document.title = item.title;
-            document.getElementById("description").innerText = item.description;
+            document.getElementById("downloadsTitle").innerText = item.downloadsTitle;
+            document.getElementById("releaseTitle").innerText = item.releaseTitle;
             document.getElementById("release").innerText = item.release;
             document.getElementById("studio").innerText = item.studio;
 
