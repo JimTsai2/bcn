@@ -155,71 +155,94 @@
 
     <script>
         const data = {
-            "en":{
-                title:"BURNING CLOUD NIGHT",
-                description:`BURNING CLOUD NIGHT (BCN) is a fan-made collection based on Dancing Line by Fire Cloud Studio.
+            "en":
+            {
+                title: "BURNING CLOUD NIGHT",
+                description: `BURNING CLOUD NIGHT (BCN) is a fan-made collection based on Dancing Line by Fire Cloud Studio.
 Go through each level to explore the charm of the game.
 We will continue to produce and include more high-quality fan-made levels.`,
-                release:`1.4.1
+                release: `1.4.1
 1. Fixed an issue where the player would die immediately after revival
 2. Added anti-aliasing
 3. Updated the UI
 4. Fixed an auto-login error`,
-                studio:"© Fire Cloud Studio"
+                studio: "Fire Cloud Studio"
             },
 
-            "zh-hant":{
-                title:"火燒雲之夜 BURNING CLOUD NIGHT",
-                description:`BURNING CLOUD NIGHT (簡稱BCN) 是Fire Cloud Studio火雲工作室以跳舞的線Dancing Line為藍本所做的飯制合集。
+            "zh-hant":
+            {
+                title: "火燒雲之夜 BURNING CLOUD NIGHT",
+                description: `BURNING CLOUD NIGHT (簡稱BCN) 是Fire Cloud Studio火雲工作室以跳舞的線Dancing Line為藍本所做的飯制合集。
 闖向各個關卡探索遊戲的魅力，我們將持續製作以及收錄更多優質飯製關卡作品。`,
-                release:`1.4.1
+                release: `1.4.1
 1. 修正復活後瞬間死亡的問題
 2. 加入反鋸齒
 3. 修改UI介面
 4. 修復自動登入錯誤`,
-                studio:"© 火雲工作室"
+                studio: "火雲工作室"
             },
 
-            "zh-hans":{
-                title:"火烧云之夜 BURNING CLOUD NIGHT",
-                description:`BURNING CLOUD NIGHT (BCN) 是Fire Cloud Studio火云工作室以跳舞的线Dancing Line为蓝本所做的饭制合集。
+            "zh-hans":
+            {
+                title: "火烧云之夜 BURNING CLOUD NIGHT",
+                description: `BURNING CLOUD NIGHT (BCN) 是Fire Cloud Studio火云工作室以跳舞的线Dancing Line为蓝本所做的饭制合集。
 闯向各个关卡探索游戏的魅力，我们将持续制作以及收录更多优质饭制关卡作品。`,
-                release:`1.4.1
+                release: `1.4.1
 1. 修复复活后瞬间死亡的问题
 2. 加入抗锯齿
 3. 更新UI界面
 4. 修复自动登录错误`,
-                studio:"© 火云工作室"
+                studio: "火云工作室"
             },
 
-            "vi":{
-                title:"BURNING CLOUD NIGHT",
-                description:`BURNING CLOUD NIGHT (BCN) là một tựa game Dancing Line Fanmade của Fire Cloud Studio.
+            "vi":
+            {
+                title: "BURNING CLOUD NIGHT",
+                description: `BURNING CLOUD NIGHT (BCN) là một tựa game Dancing Line Fanmade của Fire Cloud Studio.
 Hãy vượt qua từng màn chơi để khám phá sức hấp dẫn của trò chơi.
 Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanmade chất lượng cao.`,
-                release:`1.4.1
+                release: `1.4.1
 1. Sửa lỗi mà người chơi chết lập tức sau khi hồi sinh
-2. Đã thêm tính năng Khử răng cưa
+2. Đã thêm tính năng Khử răng cưa   
 3. Đã cập nhật giao diện
-4. Đã sửa lỗi tự動 đăng nhập`,
-                studio:"© Fire Cloud Studio"
+4. Đã sửa lỗi tự động đăng nhập`,
+                studio: "Fire Cloud Studio"
             },
 
-            "ja":{
-                title:"火焼雲の夜 BURNING CLOUD NIGHT",
-                description:`火焼雲の夜(BURNING CLOUD NIGHT) は、Dancing Line をベースにした 火雲スタジオによるファンメイドのコレクションです。
+            "ja":
+            {
+                title: "火焼雲の夜 BURNING CLOUD NIGHT",
+                description: `火焼雲の夜(BURNING CLOUD NIGHT) は、Dancing Line をベースにした 火雲スタジオによるファンメイドのコレクションです。
 各レベルをクリアして、ゲームの魅力を探求してください。
 今後も、より高品質なファンメイドレベルを制作し、収録していきます。`,
-                release:`1.4.1
+                release: `1.4.1
 1. 復活後に即死してしまう問題を修正
 2. アンチエイリアスを追加
 3. UIを更新
 4. 自動ログインの不具合を修正`,
-                studio:"© 火雲スタジオ"
+                studio: "火雲スタジオ"
             }
         };
 
-        function setLang(lang){
+        function getSystemLanguage() {
+            // 取得系統語言
+            const browserLang = navigator.language || navigator.userLanguage;
+
+            // 對應系統語言到支援的語言
+            if (browserLang.startsWith('zh-Hant') || browserLang.startsWith('zh-HK') || browserLang.startsWith('zh-MO')) {
+                return 'zh-hant';
+            } else if (browserLang.startsWith('zh')) {
+                return 'zh-hans';
+            } else if (browserLang.startsWith('ja')) {
+                return 'ja';
+            } else if (browserLang.startsWith('vi')) {
+                return 'vi';
+            }
+            // 預設為英文
+            return 'en';
+        }
+
+        function setLang(lang) {
             const item = data[lang] || data["en"];
             document.getElementById("title").innerText = item.title;
             document.title = item.title;
@@ -229,7 +252,7 @@ Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanma
 
             // 更新選單值（如果使用者透過其他方式切換）
             const sel = document.getElementById("langSelect");
-            if(sel.value !== lang) sel.value = lang;
+            if (sel.value !== lang) sel.value = lang;
         }
 
         // 當選單變更時切換語言
@@ -237,8 +260,9 @@ Chúng tôi sẽ tiếp tục tạo và bổ sung thêm nhiều màn chơi fanma
             setLang(e.target.value);
         });
 
-        // 初始語言
-        setLang("en");
+        // 根據系統語言初始化，若不支援則使用英文
+        const initialLang = getSystemLanguage();
+        setLang(initialLang);
     </script>
 
 </body>
